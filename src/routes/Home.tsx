@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { StateProps } from "../type";
 import { actionCreators } from "../store";
 import { Dispatch } from "redux";
+import ToDo from "../components/ToDo";
 
 interface HomeProps {
   toDos: StateProps[];
@@ -31,7 +32,11 @@ const Home: React.FC<HomeProps> = ({ toDos, addToDo }) => {
         <input type="text" value={text} onChange={onChange} />
         <button>Add</button>
       </form>
-      <ul>{JSON.stringify(toDos)}</ul>
+      <ul>
+        {toDos.map((toDo) => (
+          <ToDo {...toDo} key={toDo.id} />
+        ))}
+      </ul>
     </div>
   );
 };
