@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { StateProps } from "../type";
+import { actionCreators } from "../store";
+import { Dispatch } from "redux";
 
-const Home: React.FC = (toDos) => {
+interface HomeProps {
+  toDos: StateProps[];
+  addToDo: (text: string) => void;
+}
+
+const Home: React.FC<HomeProps> = ({ toDos, addToDo }) => {
   const [text, setText] = useState("");
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,6 +19,9 @@ const Home: React.FC = (toDos) => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!text) return;
+    addToDo(text);
+    setText("");
   };
 
   return (
@@ -30,4 +40,9 @@ const mapStateToProps = (state: StateProps[]) => {
   return { toDos: state };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return { addToDo: (text: string) => dispatch(actionCreators.addToDo(text)) };
+};
+
+// export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

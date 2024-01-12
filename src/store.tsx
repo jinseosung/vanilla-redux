@@ -4,11 +4,11 @@ import { ActionProps, StateProps } from "./type";
 const ADD = "ADD";
 const DELETE = "DELETE";
 
-export const addToDo = (text: string) => {
+const addToDo = (text: string) => {
   return { type: ADD, text };
 };
 
-export const deleteToDo = (id: string) => {
+const deleteToDo = (id: string) => {
   return { type: DELETE, id };
 };
 
@@ -27,5 +27,10 @@ const reducer = (
 };
 
 const store = createStore(reducer);
+
+export const actionCreators = {
+  addToDo,
+  deleteToDo,
+};
 
 export default store;
