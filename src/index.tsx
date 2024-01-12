@@ -4,11 +4,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home";
 import { Provider } from "react-redux";
 import store from "./store";
+import Detail from "./routes/Detail";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/:id",
+    element: <Detail />,
   },
 ]);
 

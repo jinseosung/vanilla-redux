@@ -3,16 +3,20 @@ import { StateProps } from "../type";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { actionCreators } from "../store";
+import { Link } from "react-router-dom";
 
 interface ToDoProps {
   text: string;
+  id: number;
   onClick: () => void;
 }
 
-const ToDo: React.FC<ToDoProps> = ({ text, onClick }) => {
+const ToDo: React.FC<ToDoProps> = ({ text, id, onClick }) => {
   return (
-    <li id="id">
-      {text} <button onClick={onClick}>DEL</button>
+    <li id={`${id}`}>
+      <Link to={`/${id}`}>
+        {text} <button onClick={onClick}>DEL</button>
+      </Link>
     </li>
   );
 };
