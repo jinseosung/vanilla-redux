@@ -13,3 +13,9 @@ export interface Todo {
   id: number;
   text: string;
 }
+
+export interface CreateActionProps {
+  type: string;
+  payload: string;
+  id: string;
+}

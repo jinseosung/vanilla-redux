@@ -14,9 +14,8 @@ interface ToDoProps {
 const ToDo: React.FC<ToDoProps> = ({ text, id, onClick }) => {
   return (
     <li id={`${id}`}>
-      <Link to={`/${id}`}>
-        {text} <button onClick={onClick}>DEL</button>
-      </Link>
+      <Link to={`/${id}`}>{text}</Link>
+      <button onClick={onClick}>DEL</button>
     </li>
   );
 };
