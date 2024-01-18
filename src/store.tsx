@@ -1,23 +1,22 @@
 import { createStore } from "redux";
-import { CreateActionProps, StateProps } from "./type";
-import { createAction } from "@reduxjs/toolkit";
+import { StateProps } from "./type";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 
 const addToDo = createAction<string>("ADD");
 const deleteToDo = createAction<string>("DELETE");
 
-const reducer = (
-  state: StateProps[] = [],
-  action: CreateActionProps
-): StateProps[] => {
-  switch (action.type) {
-    case addToDo.type:
-      return [{ text: action.payload, id: Date.now() }, ...state];
-    case deleteToDo.type:
+const reducer = createReducer([] as StateProps[], (builder) => {
+  builder
+    .addCase(addToDo, (state, action) => {
+      // mutate the state (using Immer)
+      // if want to return it, it should be new state
+      state.push({ text: action.payload, id: Date.now() });
+    })
+    .addCase(deleteToDo, (state, action) => {
+      // return new state
       return state.filter((toDo) => toDo.id !== parseInt(action.payload));
-    default:
-      return state;
-  }
-};
+    });
+});
 
 const store = createStore(reducer);
 
@@ -27,6 +26,20 @@ export const actionCreators = {
 };
 
 export default store;
+
+// const reducer = (
+//   state: StateProps[] = [],
+//   action: CreateActionProps
+// ): StateProps[] => {
+//   switch (action.type) {
+//     case addToDo.type:
+//       return [{ text: action.payload, id: Date.now() }, ...state];
+//     case deleteToDo.type:
+//       return state.filter((toDo) => toDo.id !== parseInt(action.payload));
+//     default:
+//       return state;
+//   }
+// };
 
 // const ADD = "ADD";
 // const DELETE = "DELETE";
